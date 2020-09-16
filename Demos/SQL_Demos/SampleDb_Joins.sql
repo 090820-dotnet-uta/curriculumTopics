@@ -1,23 +1,28 @@
+
+--SELECT * from Addresses;
+--SELECT * from Customers;
+--SELECT * from Orders;
+
 --Get all customers with addresses (RIGHT JOIN)
-SELECT firstName, lastName, Addresses.city
+SELECT FirstName, LastName, Addresses.City, Addresses.AddressLine1, Addresses.Addressid
 FROM Customers
 RIGHT JOIN Addresses 
-ON addressID = Addresses.id
-WHERE Addresses.city = 'city3'
+ON Customers.AddressID = Addresses.Addressid
+WHERE Addresses.City = 'Crowley, TX'
 ORDER BY lastName;
 
 --Get all customers with addresses (LEFT JOIN)
-SELECT firstName, lastName, Addresses.city
+SELECT FirstName, LastName, Addresses.AddressLine1, Addresses.City
 FROM Customers
 LEFT JOIN Addresses 
-ON addressID = Addresses.id
-WHERE Addresses.city = 'city3'
-ORDER BY lastName;
+ON Customers.AddressID = Addresses.AddressID
+WHERE Addresses.AddressLine1 = '444 Main''s St.'
+ORDER BY LastName;
 
 --Get all customers with addresses (INNER JOIN)
-SELECT firstName, lastName, Addresses.city
+SELECT FirstName, LastName, Addresses.City
 FROM Customers
 INNER JOIN Addresses 
-ON addressID = Addresses.id
-WHERE Addresses.city = 'city3'
-ORDER BY lastName;
+ON Customers.AddressID = Addresses.Addressid
+WHERE Addresses.City = 'Fort Worth, TX'
+ORDER BY LastName;

@@ -12,7 +12,7 @@
 --TRUNCATE TABLE Customers;
 --TRUNCATE TABLE Addresses;
 
-CREATE DATABASE Sample_DB;
+CREATE DATABASE Sample_DBTest;
 
 CREATE TABLE Addresses(
 Addressid INT PRIMARY KEY IDENTITY,
@@ -33,7 +33,7 @@ CREATE TABLE Orders(
 OrderId INT PRIMARY KEY IDENTITY NOT NULL,
 CustomerID INT NOT NULL FOREIGN KEY REFERENCES Customers(CustomerId) ON DELETE CASCADE,
 OrderDate date NOT NULL,
-totalAmount float NOT NULL);
+totalAmount MONEY NOT NULL);
 
 --insert to tables in this order because of FK References
 INSERT INTO Addresses (AddressLine1, AddressLine2, City, CountryCode) 
@@ -41,18 +41,49 @@ VALUES ('123 MAIN St.', NULL, 'Fort Worth, TX', 'USA');
 INSERT INTO Addresses (AddressLine1, AddressLine2, City, CountryCode) 
 VALUES ('321 MAIN St.', NULL, 'Dallas, TX', 'USA');
 INSERT INTO Addresses (AddressLine1, AddressLine2, City, CountryCode) 
-VALUES ('100 1st St.', NULL, 'Crowley, TX', 'USA');
+VALUES ('444 Main''s St.', NULL, 'Dallas, TX', 'USA');
 
 INSERT INTO Customers (FirstName, LastName, AddressID, LastOrderDate, Remarks) 
-VALUES ('Mark', 'Moore', 1, '2020-09-13', 'He''s a cool guy');
+VALUES ('Matt', 'Moore', 6, '2020-09-13', 'test1');
 INSERT INTO Customers (FirstName, LastName, AddressID, LastOrderDate, Remarks) 
-VALUES ('Arely', 'Moore', 1, '2020-09-15', 'She orders a LOT!');
+VALUES ('Libby', 'Moore', 6, '2020-09-15', 'test2');
 INSERT INTO Customers (FirstName, LastName, AddressID, LastOrderDate, Remarks) 
-VALUES ('Maya', 'Moore', 1, null, 'She screams a lot.');
+VALUES ('Jeff', 'Moore', 8, null, 'test3');
 
 INSERT INTO Orders (CustomerID, OrderDate, totalAmount) 
-VALUES (2, '2020-09-13', 265.31);
+VALUES (2, '2020-09-13', 101.00);
 INSERT INTO Orders (CustomerID, OrderDate, totalAmount) 
-VALUES (1, '2020-09-4', 0);
+VALUES (1, '2020-09-4', 51);
 INSERT INTO Orders (CustomerID, OrderDate, totalAmount) 
-VALUES (3, '2020-09-13', .31);
+VALUES (3, '1979-09-13', 41.31);
+
+--Change the totalAmount column to MONEY to see the $ (not working)
+ALTER TABLE Orders
+ALTER COLUMN totalAmount MONEY;
+
+ALTER TABLE Orders
+DROP COLUMN totalAmount;
+
+ALTER TABLE Orders
+ADD totalAmount MONEY;
+
+UPDATE Orders
+SET totalAmount = 99.99
+WHERE OrderId = 1;
+
+UPDATE Addresses
+SET AddressLine1 = '444 Main''s St.'
+WHERE Addressid = 6;
+
+--Get average of oder totals
+SELECT AVG(totalAmount) AS 'This is the average of order totals'
+FROM Orders;
+
+SELECT Count(totalAmount) AS 'This is the count of order totals'
+FROM Orders;
+
+--Get how many orders each customer has made
+SELECT CustomerID, SUM(totalAmount)
+FROM Orders
+GROUP BY CustomerID;
+
