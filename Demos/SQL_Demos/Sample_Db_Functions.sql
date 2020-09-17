@@ -11,5 +11,5 @@ BEGIN
 END
 
 -- call function (dbo means DataBase Owner)
-SELECT dbo.GetNetSale(10000,10000.00,0.1) AS netSale;
+-- SELECT dbo.GetNetSale(100000,100000.00,0.9) AS netSale;
 

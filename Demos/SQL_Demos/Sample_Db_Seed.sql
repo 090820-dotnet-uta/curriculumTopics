@@ -57,7 +57,7 @@ VALUES (1, '2020-09-4', 51);
 INSERT INTO Orders (CustomerID, OrderDate, totalAmount) 
 VALUES (3, '1979-09-13', 41.31);
 
---Change the totalAmount column to MONEY to see the $ (not working)
+--Change the totalAmount column to MONEY
 ALTER TABLE Orders
 ALTER COLUMN totalAmount MONEY;
 
@@ -82,8 +82,8 @@ FROM Orders;
 SELECT Count(totalAmount) AS 'This is the count of order totals'
 FROM Orders;
 
---Get how many orders each customer has made
-SELECT CustomerID, SUM(totalAmount)
+--Get how many orders each customer has made and format the output as Currency
+SELECT CustomerID, FORMAT(SUM(totalAmount), 'c') AS 'Dollars'
 FROM Orders
 GROUP BY CustomerID;
 
