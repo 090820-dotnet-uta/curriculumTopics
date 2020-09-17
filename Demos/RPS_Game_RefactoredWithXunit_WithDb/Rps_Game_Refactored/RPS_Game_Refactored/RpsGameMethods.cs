@@ -9,7 +9,9 @@ namespace RPS_Game_Refactored
         /// <summary>
         /// Get a choice of 1 (play) or 2 (quit) from the user
         /// </summary>
-        /// <returns>int</returns>
+        /// <returns>
+        /// integer
+        /// </returns>
         public static int GetUsersIntent()
         {
             int choice;//this is be out variable choice of the player to 1 (play) or 2 (quit)
@@ -34,28 +36,28 @@ namespace RPS_Game_Refactored
         {
             foreach (var game in games)
             {
-                Console.WriteLine($"Player1 Name => {game.Player1.Name}\ncomputer Name => {game.Computer.Name}\n winner is => {game.winner.Name}");
-                Console.WriteLine($"\n\t--- Here are the details of each games rounds --- ");
+                System.Console.WriteLine($"Player1 Name => {game.Player1.Name}\ncomputer Name => {game.Computer.Name}\n winner is => {game.winner.Name}");
+                System.Console.WriteLine($"\n\t--- Here are the details of each games rounds --- ");
                 foreach (Round round in game.rounds)
                 {
-                    Console.WriteLine($"player1 => {round.player1.Name}, p1 choice => {round.p1Choice}");
-                    Console.WriteLine($"player2 => {round.Computer.Name}, computer choice => {round.ComputerChoice}");
-                    Console.WriteLine($"The Outcome (Winner) of this round is player {round.Outcome}\n");
+                    System.Console.WriteLine($"player1 => {round.player1.Name}, p1 choice => {round.p1Choice}");
+                    System.Console.WriteLine($"player2 => {round.Computer.Name}, computer choice => {round.ComputerChoice}");
+                    System.Console.WriteLine($"The Outcome (Winner) of this round is player {round.Outcome}\n");
                     if (round.Outcome == 1)
                     {
-                        Console.WriteLine($"WINNER => {game.Player1.Name}\n");
+                        System.Console.WriteLine($"WINNER => {game.Player1.Name}\n");
                     }
                     else if (round.Outcome == 2)
                     {
-                        Console.WriteLine($"WINNER => {game.Computer.Name}\n");
+                        System.Console.WriteLine($"WINNER => {game.Computer.Name}\n");
                     }
                 }
             }
 
-            Console.WriteLine("Here is the list of players.");
+            System.Console.WriteLine("Here is the list of players.");
             foreach (var player in players)
             {
-                Console.WriteLine($"This players name is {player.Name} and he has {player.Wins} wins and {player.Losses} losses");
+                System.Console.WriteLine($"This players name is {player.Name} and he has {player.record["wins"]} wins and {player.record["losses"]} losses");
             }
         }
 
@@ -65,10 +67,9 @@ namespace RPS_Game_Refactored
         /// <returns></returns>
         public static string GetPlayerName()
         {
-            //TODO : add checking for user enters "Computer" as their name
-            Console.WriteLine("What is your name?");
+            System.Console.WriteLine("What is your name?");
             string playerName = Console.ReadLine();
-            playerName = playerName.Trim();//take off beginning or ending white space
+            playerName.Trim();//take off beginning or ending white space
             return playerName;
         }
 

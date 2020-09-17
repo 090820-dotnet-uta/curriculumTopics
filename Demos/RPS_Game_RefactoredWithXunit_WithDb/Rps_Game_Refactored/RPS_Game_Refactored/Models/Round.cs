@@ -1,11 +1,9 @@
 using System;
-//using System.ComponentModel.DataAnnotations;//use this if you want to sopecify which property will be the Primary Key
 
 namespace RPS_Game_Refactored
 {
     public class Round
     {
-        public int RoundId { get; set; }
         public Player player1 { get; set; }
         public Player Computer { get; set; }
         public Choice p1Choice { get; set; }
