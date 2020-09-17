@@ -76,27 +76,27 @@ namespace RPS_Game_Refactored
         /// checks the list of players to see if the player is returning. If not, creates a new player and adds him to the List<Player>
         /// </summary>
         /// <returns></returns>
-        public static Player VerifyPlayer(List<Player> players, string playerName)
+        public static bool VerifyPlayer(List<Player> players, string playerName)
         {
-            Player p1 = new Player();
+            //Player p1 = new Player();
 
             // check the list of players to see if this player is a returning player.
             foreach (Player item in players)
             {
                 if (item.Name == playerName)
                 {
-                    p1 = item;
-                    System.Console.WriteLine("You are a returning player. Game ON!");
-                    break;//end the foreach loop
+                    //p1 = item;
+                    Console.WriteLine("You are a returning player. Game ON!");
+                    return true;
                 }
             }
-
-            if (p1.Name == "null")//means the players name was not found above
-            {
-                p1.Name = playerName;
-                players.Add(p1);
-            }
-            return p1;
+            return false;
+            //if (p1.Name == "null")//means the players name was not found above
+            //{
+            //    p1.Name = playerName;
+            //    players.Add(p1);
+            //}
+            //return p1;
         }
 
         /// <summary>
@@ -110,20 +110,28 @@ namespace RPS_Game_Refactored
             return (Choice)rand.Next(3);
         }
 
-        public static void GetRoundWinner(Round round)
+        /// <summary>
+        /// take the round and return 0 for a tie, 1 for p1 wins, 2 for computer wins
+        /// </summary>
+        /// <param name="round"></param>
+        /// <returns></returns>
+        public static int GetRoundWinner(Round round)
         {
             if (round.p1Choice == round.ComputerChoice)
             {
-                round.Outcome = 0; // it’s a tie . the default is 0 so this line is unnecessary.
-                System.Console.WriteLine("this round was a tie");
+                //round.Outcome = 0; // it’s a tie . the default is 0 so this line is unnecessary.
+                Console.WriteLine("this round was a tie");
+                return 0;
             }
             else if ((int)round.p1Choice == ((int)round.ComputerChoice + 1) % 3)
             { //If users pick is one more than the computer’s, user wins
-                round.Outcome = 1;
+                //round.Outcome = 1;
+                return 1;
             }
             else
             { //If it’s not a tie and p1 didn’t win, then computer wins.
-                round.Outcome = 2;
+                //round.Outcome = 2;
+                return 2;
             }
         }
 

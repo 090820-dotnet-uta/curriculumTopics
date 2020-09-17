@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RPS_Game_Refactored
 {
     public class Player
     {
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PlayerId { get; set; }
         public string Name { get; set; } = "null";
 
@@ -14,7 +16,7 @@ namespace RPS_Game_Refactored
         //     this.name = name;
         // }
 
-        public List<Game> games = new List<Game>();
+        //public List<Game> games = new List<Game>();
         //public Dictionary<string, int> record = new Dictionary<string, int>()
         //{
         //    {"wins", 0},

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPS_Game_Refactored.Models;
 
 namespace RPS_Game_Refactored.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20200917213817_5thMigration")]
+    partial class _5thMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +77,9 @@ namespace RPS_Game_Refactored.Migrations
                     b.Property<int?>("ComputerPlayerId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Outcome")
                         .HasColumnType("int");
 
@@ -87,6 +92,8 @@ namespace RPS_Game_Refactored.Migrations
                     b.HasKey("RoundId");
 
                     b.HasIndex("ComputerPlayerId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("player1PlayerId");
 
@@ -109,6 +116,10 @@ namespace RPS_Game_Refactored.Migrations
                     b.HasOne("RPS_Game_Refactored.Player", "Computer")
                         .WithMany()
                         .HasForeignKey("ComputerPlayerId");
+
+                    b.HasOne("RPS_Game_Refactored.Game", "game")
+                        .WithMany()
+                        .HasForeignKey("GameId");
 
                     b.HasOne("RPS_Game_Refactored.Player", "player1")
                         .WithMany()

@@ -2,7 +2,7 @@
 
 namespace RPS_Game_Refactored.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class _5thMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
