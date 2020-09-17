@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-// using ./Models/Player.cs;
 
 namespace RPS_Game_Refactored
 {
@@ -67,15 +66,15 @@ namespace RPS_Game_Refactored
                     if (whoWon == 1)
                     {
                         game.winner = p1;
-                        p1.record["wins"]++;//increments wins and losses.
-                        computer.record["losses"]++;//increments wins and losses.
+                        p1.Wins++;//increments wins and losses.
+                        computer.Losses++;//increments wins and losses.
                         System.Console.WriteLine($"The winner of this game was Player1\n");
                     }
                     else if (whoWon == 2)
                     {
                         game.winner = computer;
-                        p1.record["losses"]++;//increments wins and losses.
-                        computer.record["wins"]++;//increments wins and losses.
+                        p1.Losses++;//increments wins and losses.
+                        computer.Wins++;//increments wins and losses.
                         System.Console.WriteLine($"The winner of this game was the computer\n");
                     }
                 }//end of rounds loop
