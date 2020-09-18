@@ -1,3 +1,4 @@
+--'AFTER' TRIGGER
 --Create a table to log all the changes made
 CREATE TABLE Customer_audits
 (
@@ -12,10 +13,9 @@ UpdatedAt DATETIME NOT NULL,--record when the operation happened
 Operation CHAR(3) NOT NULL,--Record what type of operation it is.
 CHECK(operation = 'INS' or operation='DEL')
 );
-
 --Select * FROM Customers;
 
---Create a Trigger
+--Create the 'AFTER' Trigger
 CREATE TRIGGER WhenCustomerAdded
 ON Customers
 AFTER INSERT, DELETE
@@ -47,3 +47,48 @@ INSERT INTO Customers (FirstName, LastName, AddressID, LastOrderDate, Remarks)
 VALUES ('Test', 'Testerson', 6, '0999-12-31', 'Testing for the first millennium');
 		
 SELECT * FROM Customer_audits;
+
+
+--'INSTEAD OF' TRIGGER
+--Create a table to log all the changes made
+CREATE TABLE Customers_pending
+(
+	--record a unique id of the change
+	PendingChangeId INT IDENTITY PRIMARY KEY,
+	FirstName VARCHAR(255),
+	LastName VARCHAR(255),
+	AddressID INT,
+	LastOrderDate DATE,
+	Remarks VARCHAR(255),
+);
+
+--Create an 'INSTEAD OF' Trigger
+CREATE TRIGGER NewCustomerAdded
+ON Customers
+INSTEAD OF INSERT
+AS 
+BEGIN
+-- to suppress the number of rows affected 
+-- messages from being returned (@@ROWCOUNT)
+SET NOCOUNT ON;
+INSERT INTO Customers_pending
+(
+	FirstName,LastName,AddressID,
+	LastOrderDate,Remarks
+)
+SELECT
+	FirstName,LastName,AddressID,
+	LastOrderDate,Remarks
+FROM
+	inserted
+END
+
+--Insert a new Customer
+INSERT INTO Customers 
+(FirstName, LastName, AddressID, LastOrderDate, Remarks) 
+VALUES 
+('Testy', 'McTesterson', 6, '0999-12-31', 'Testing the Test of a test');
+
+--Look at the Customers_pending table
+SELECT * FROM Customers_pending;
+DROP TABLE Customers_pending;
