@@ -25,7 +25,7 @@ namespace RPS_Game_Refactored
         }
 
         /// <summary>
-        /// This method takes 3 lists and prints out the contents of all of them.
+        /// This method takes 3 lists from the Db and prints out the contents of all of them.
         /// </summary>
         /// <param name="games"></param>
         /// <param name="players"></param>
@@ -35,27 +35,27 @@ namespace RPS_Game_Refactored
             foreach (var game in games)
             {
                 Console.WriteLine($"Player1 Name => {game.Player1.Name}\ncomputer Name => {game.Computer.Name}\n winner is => {game.winner.Name}");
-                Console.WriteLine($"\n\t--- Here are the details of each games rounds --- ");
+                Console.WriteLine($"\n\t--- Here are the details of the games rounds --- ");
                 foreach (Round round in game.rounds)
                 {
                     Console.WriteLine($"player1 => {round.player1.Name}, p1 choice => {round.p1Choice}");
                     Console.WriteLine($"player2 => {round.Computer.Name}, computer choice => {round.ComputerChoice}");
                     Console.WriteLine($"The Outcome (Winner) of this round is player {round.Outcome}\n");
-                    if (round.Outcome == 1)
-                    {
-                        Console.WriteLine($"WINNER => {game.Player1.Name}\n");
-                    }
-                    else if (round.Outcome == 2)
-                    {
-                        Console.WriteLine($"WINNER => {game.Computer.Name}\n");
-                    }
                 }
             }
-
             Console.WriteLine("Here is the list of players.");
             foreach (var player in players)
             {
                 Console.WriteLine($"This players name is {player.Name} and he has {player.Wins} wins and {player.Losses} losses");
+            }
+
+            Console.WriteLine("Here are all the rounds played in all games so far.");
+            foreach (var round in rounds)
+            {
+                Console.WriteLine($"Round#{round.RoundId}");
+                Console.WriteLine($"Player1, {round.player1.Name}, chose {round.p1Choice}");
+                Console.WriteLine($"Player2, {round.Computer.Name}, chose {round.ComputerChoice}");
+                Console.WriteLine($"The winner of this round was player {round.Outcome}\n");
             }
         }
 
@@ -78,8 +78,6 @@ namespace RPS_Game_Refactored
         /// <returns></returns>
         public static bool VerifyPlayer(List<Player> players, string playerName)
         {
-            //Player p1 = new Player();
-
             // check the list of players to see if this player is a returning player.
             foreach (Player item in players)
             {
@@ -91,12 +89,6 @@ namespace RPS_Game_Refactored
                 }
             }
             return false;
-            //if (p1.Name == "null")//means the players name was not found above
-            //{
-            //    p1.Name = playerName;
-            //    players.Add(p1);
-            //}
-            //return p1;
         }
 
         /// <summary>

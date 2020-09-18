@@ -32,16 +32,10 @@ namespace RPS_Game_Refactored
                     }
                 }
 
-
-
-
                 int choice;//this is be out variable choice of the player to 1 (play) or 2 (quit)
                 Player computer = new Player() { Name = "Computer" };//instantiate a Player and give a value to the Name all at once.
                 context.Players.Add(computer);//add the computer to List<Player> players
                 context.SaveChanges();
-
-                //search for the the computer to get his id
-                //computer = context.Players.Where(x => x.Name == "Computer").FirstOrDefault();
 
                 int gameCounter = 1;//to keep track of how many games have been played so far in this compilation
 
@@ -54,18 +48,15 @@ namespace RPS_Game_Refactored
 
                     string playerName = RpsGameMethods.GetPlayerName();//get the player name. this is a place to make sure the user isn't using forbidden words or symbols
 
-                    // if the player name is not already in the Db add him
+                    // if the player name is not already in the Db, add him
                     Player p1 = new Player();
                     if(!RpsGameMethods.VerifyPlayer(context.Players.ToList(), playerName))
                     {
                         p1.Name = playerName;
                         context.Add(p1);
                         context.SaveChanges();
-                        //p1 = context.Players.Where(x => x.Name == playerName).FirstOrDefault();
                     }
-                    else{
-                        p1 = context.Players.Where(x => x.Name == playerName).FirstOrDefault();
-                    }
+                    else{   p1 = context.Players.Where(x => x.Name == playerName).FirstOrDefault();   }
 
                     Game game = new Game();// create a game
                     game.Player1 = p1;//
@@ -76,26 +67,20 @@ namespace RPS_Game_Refactored
                     while (game.winner.Name == "null")
                     {
                         Round round = new Round();//declare a round for this iteration
-                        //round.game = game;// add the game to this round
                         round.player1 = p1;// add user (p1) to this round
                         round.Computer = computer;// add computer to this round
 
-                        //get the choices for the 2 players
-                        //insert the players choices directly into the round
+                        //get the choices for the 2 players and insert the players choices directly into the round
                         round.p1Choice = RpsGameMethods.GetRandomChoice();//this will give a random number starting at 0 to arg-1;
                         round.ComputerChoice = RpsGameMethods.GetRandomChoice();
                         round.Outcome = RpsGameMethods.GetRoundWinner(round);//check the choices to see who won.
                         context.Add(round);
                         context.SaveChanges();
-                        //game.rounds.Add(context.Rounds.)
-
-                        game.rounds.Add(round);//add this round to the games List of rounds
+                        game.rounds.Add(round);//add this round to the games' List of rounds
                         
-                        //search the game.rounds List<> to see if one player has 2 wins
-                        //if not loop to another round
                         Console.WriteLine($"\tFor this Game so far:\n\t\tp1wins => {game.rounds.Count(x => x.Outcome == 1)} \n\t\tcomputer wins {game.rounds.Count(x => x.Outcome == 2)}");
 
-                        int gameWinner = RpsGameMethods.GetWinner(game);
+                        int gameWinner = RpsGameMethods.GetWinner(game);//get a number ot say is p1(1) or computer(2) won
                         //assign the winner to the game and increment wins and losses for both
                         if (gameWinner == 1)
                         {
@@ -103,8 +88,6 @@ namespace RPS_Game_Refactored
                             p1.Wins++;//increments wins and losses.
                             computer.Losses++;//increments wins and losses.
                             Console.WriteLine($"The winner of this game was Player1\n");
-                            //context.Add(round);
-                            //context.SaveChanges();
                         }
                         else if (gameWinner == 2)
                         {
@@ -112,19 +95,13 @@ namespace RPS_Game_Refactored
                             p1.Losses++;//increments wins and losses.
                             computer.Wins++;//increments wins and losses.
                             Console.WriteLine($"The winner of this game was the computer\n");
-                            //context.Add(round);
-                            //context.SaveChanges();
                         }
-                        
                     }//end of rounds loop
-
-                    context.Add(game);
+                    context.Add(game);//save the game
                     context.SaveChanges();
                 } while (choice != 2);//end of game loop
-
                 RpsGameMethods.PrintAllCurrentData(context.Games.ToList(), context.Players.ToList(), context.Rounds.ToList());
             }
-            
         }//end of main
     }//end of program
 }//end of namaespace
