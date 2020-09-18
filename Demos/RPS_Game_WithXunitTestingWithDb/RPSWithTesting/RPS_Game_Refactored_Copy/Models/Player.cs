@@ -10,8 +10,6 @@ namespace RPS_Game_Refactored
         public int PlayerId { get; set; }
         public string Name { get; set; } = "null";
 
-        //public string name;
-        //private string name;
         // public void SetName(string name){
         //     this.name = name;
         // }

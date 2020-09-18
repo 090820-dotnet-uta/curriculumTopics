@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
 using RPS_Game_Refactored.Models;
 
@@ -19,26 +20,40 @@ namespace RPS_Game_Refactored
         {
             using (var context = new DbContextClass())
             {
-                Console.WriteLine("Enter 10 to start wtih a fresh Db or anything else to play with the existing records.");
+                Console.WriteLine("(not working))Enter 10 to start with a fresh Db or anything else to play with the existing records.");
                 string userInput = Console.ReadLine();
                 int usersNumber;
                 if(int.TryParse(userInput,out usersNumber))
                 {
                     if (usersNumber == 10) 
                     {
-                        context.Games.FromSqlRaw("TRUNCATE TABLE Games");
-                        context.Rounds.FromSqlRaw("TRUNCATE TABLE Rounds");
-                        context.Players.FromSqlRaw("DELETE FROM Players WHERE PlayerId > 0 AND PlayerId < 100");
+                        Console.WriteLine("In Truncate tables");
+                        context.Games.FromSqlRaw("DELETE FROM Games WHERE GameId = 2");
+                        //context.ExecuteCommand("TRUNCATE TABLE Games");
+                        //.FromSqlRaw("TRUNCATE TABLE Rounds");
+                        //context.Players.FromSqlRaw("DELETE FROM Players WHERE PlayerId > 0 AND PlayerId < 1000");
                     }
                 }
 
+                var dept = context.Players.Include(a => a.PlayerId).Where(a => a.DepartmentId == ID).FirstOrDefault();
+
                 int choice;//this is be out variable choice of the player to 1 (play) or 2 (quit)
-                Player computer = new Player() { Name = "Computer" };//instantiate a Player and give a value to the Name all at once.
-                context.Players.Add(computer);//add the computer to List<Player> players
-                context.SaveChanges();
+                Player computer = new Player();
+                //{ Name = "Computer" };//instantiate a Player and give a value to the Name all at once.
+
+                //try to find an existing player names "computer"
+                if(context.Players.Any(x => x.Name == "Computer"))
+                {
+                    computer = context.Players.Where(x => x.Name == "Computer").FirstOrDefault();
+                }
+                else{
+                    computer.Name = "Computer";
+                    context.Players.Add(computer);//add the computer to List<Player> players
+                    context.SaveChanges();
+                }
+
 
                 int gameCounter = 1;//to keep track of how many games have been played so far in this compilation
-
                 do//game loop
                 {
                     choice = RpsGameMethods.GetUsersIntent();//get a choice from the user (play or quit)
