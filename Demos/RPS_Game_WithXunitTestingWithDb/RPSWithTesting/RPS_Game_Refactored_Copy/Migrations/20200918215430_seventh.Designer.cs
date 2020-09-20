@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPS_Game_Refactored.Models;
 
 namespace RPS_Game_Refactored.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20200918215430_seventh")]
+    partial class seventh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,7 +117,7 @@ namespace RPS_Game_Refactored.Migrations
                         .WithMany()
                         .HasForeignKey("ComputerPlayerId");
 
-                    b.HasOne("RPS_Game_Refactored.Game", null)
+                    b.HasOne("RPS_Game_Refactored.Game", "game")
                         .WithMany("rounds")
                         .HasForeignKey("GameId");
 

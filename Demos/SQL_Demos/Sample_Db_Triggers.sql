@@ -1,5 +1,6 @@
 --'AFTER' TRIGGER
 --Create a table to log all the changes made
+--DROP TABLE Customer_audits;
 CREATE TABLE Customer_audits
 (
 ChangeId INT IDENTITY PRIMARY KEY,--record a unique id of the change
@@ -16,6 +17,7 @@ CHECK(operation = 'INS' or operation='DEL')
 --Select * FROM Customers;
 
 --Create the 'AFTER' Trigger
+-- DROP TRIGGER WhenCustomerAdded;
 CREATE TRIGGER WhenCustomerAdded
 ON Customers
 AFTER INSERT, DELETE
@@ -45,7 +47,7 @@ END
 --test the trigger to verify that it works.
 INSERT INTO Customers (FirstName, LastName, AddressID, LastOrderDate, Remarks) 
 VALUES ('Test', 'Testerson', 6, '0999-12-31', 'Testing for the first millennium');
-		
+
 SELECT * FROM Customer_audits;
 
 
@@ -63,6 +65,7 @@ CREATE TABLE Customers_pending
 );
 
 --Create an 'INSTEAD OF' Trigger
+-- DROP TRIGGER NewCustomerAdded;
 CREATE TRIGGER NewCustomerAdded
 ON Customers
 INSTEAD OF INSERT
@@ -87,8 +90,17 @@ END
 INSERT INTO Customers 
 (FirstName, LastName, AddressID, LastOrderDate, Remarks) 
 VALUES 
-('Testy', 'McTesterson', 6, '0999-12-31', 'Testing the Test of a test');
+('Testy2', 'McTesterson', 6, '0999-12-31', 'Testing the Test of a test');
+INSERT INTO Customers 
+(FirstName, LastName, AddressID, LastOrderDate, Remarks) 
+VALUES 
+('Jerky', 'McJerkyson', 6, '1950-10-01', 'Testing the Test of a test');
 
 --Look at the Customers_pending table
 SELECT * FROM Customers_pending;
 DROP TABLE Customers_pending;
+
+
+--disable the triggers on a table
+DISABLE TRIGGER ALL ON Customers;
+ENABLE TRIGGER ALL ON Customers;

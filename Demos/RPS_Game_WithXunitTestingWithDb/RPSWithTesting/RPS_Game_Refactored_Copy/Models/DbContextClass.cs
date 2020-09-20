@@ -16,8 +16,6 @@ namespace RPS_Game_Refactored.Models
             if(!options.IsConfigured){
                 options.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=RPSDB;Trusted_Connection=True;");
             }
-
         }
-
     }
 }

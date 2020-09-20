@@ -20,22 +20,10 @@ namespace RPS_Game_Refactored
         {
             using (var context = new DbContextClass())
             {
-                Console.WriteLine("(not working))Enter 10 to start with a fresh Db or anything else to play with the existing records.");
+                Console.WriteLine("This game still needs to be refactored to insert the GameId into the Round before .SaveChanges();.");
                 string userInput = Console.ReadLine();
                 int usersNumber;
-                if(int.TryParse(userInput,out usersNumber))
-                {
-                    if (usersNumber == 10) 
-                    {
-                        Console.WriteLine("In Truncate tables");
-                        context.Games.FromSqlRaw("DELETE FROM Games WHERE GameId = 2");
-                        //context.ExecuteCommand("TRUNCATE TABLE Games");
-                        //.FromSqlRaw("TRUNCATE TABLE Rounds");
-                        //context.Players.FromSqlRaw("DELETE FROM Players WHERE PlayerId > 0 AND PlayerId < 1000");
-                    }
-                }
 
-                var dept = context.Players.Include(a => a.PlayerId).Where(a => a.DepartmentId == ID).FirstOrDefault();
 
                 int choice;//this is be out variable choice of the player to 1 (play) or 2 (quit)
                 Player computer = new Player();

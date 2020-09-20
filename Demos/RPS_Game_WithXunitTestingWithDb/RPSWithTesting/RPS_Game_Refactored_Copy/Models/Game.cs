@@ -12,7 +12,7 @@ namespace RPS_Game_Refactored
         //[Required]
         public Player Player1 { get; set; }
         public Player Computer { get; set; }
-        public List<Round> rounds = new List<Round>();
+        public ICollection<Round> rounds { get; set; }
         public Player winner = new Player();
 
     }
