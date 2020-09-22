@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- the head is where the metadata is. -->
+
+<head>
+    <!-- charset ==  giver you every character known to man... mostly -->
+    <meta charset="UTF-8">
+    <!-- viewport == tells how to display the html on the device (cell, desktop, etc) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- you can place styling here or inline. BUT putting styling in a .CSS doc is recommended.  -->
+    <style>
+        /* select any element with class 'class1' */
+        .class1 {
+            background-color: darkgreen;
+            text-align: center;
+            width: 50%;
+        }
+
+        /* select any element with ID 'id1' */
+        #id1 {
+            font-size: 50px;
+            text-decoration: wavy underline darkorange;
+        }
+    </style>
+    <!-- give your page a title. this si what you see on the browser tab and what is given automatically when you save a tab -->
+    <title>Marks Doc</title>
+</head>
+
+<!-- the body is what you see int he browser -->
+
+<body>
+    <!-- a 'div' groups items and creates sepatation in the document. 'inline styling' changes the font size and background color -->
+    <div style="font-size: 50px; background-color: red;">
+        <!-- a 'span' is used for inline selection and styling -->
+        <p>Hey there, <span style="background-color:rgba(52, 182, 121, .9);"><strong>tiger</strong></span>...</p>
+        <p>Me llamo Cornholio</p>
+    </div>
+
+    <!-- inline styling examples -->
+    <p>This is <strong>bold</strong> text</p>
+    <p>This is <i>italic</i> text</p>
+    <p>This is <sub>subscript</sub> text</p>
+    <p>This is <strong>bold</strong> text</p>
+    <p>This is <sup>superscript</sup> text</p>
+    <p>This is <del>linethrough</del> text</p>
+    <p>This is <mark style="color: chartreuse; background-color: cornflowerblue;">highlighted</mark> text</p>
+
+    <!-- add a class selector to an element classes are not unique in the doc or docs-->
+    <p class="class1">is is a class</p>
+
+    <!-- add an ID selector to an element ID's are unique to this element-->
+    <p id="id1">This is styled with an id</p>
+
+    <!-- header elements: ther are 6. h1 is biggest, h6 is smallest -->
+    <h1 style="text-decoration: underline blue;">This is BIG</h1>
+    <h2>This isn't so big</h2>
+    <h3>This is normal size</h3>
+    <h4>This is small</h4>
+    <h5>This is smaller</h5>
+    <h6>This is <small><sub>tiny subscript</sub></small></h6>
+
+    <!-- the a element allows you to create links to websites or even places within your page -->
+    <a href="https://www.revature.com">This is a link to Revature</a>
+
+    <img src="https://3g4d13k75x47q7v53surz1gi-wpengine.netdna-ssl.com/wp-content/uploads/2016/10/3-RevaturePro_Image1.jpg"
+        alt="This Image was stolen from Ravature website">
+
+    <!-- 'img' allows you to link an image. remember to include the relative (or absolute) path -->
+    <img style="height: 300px;" src="./jailFolder/jailCell.jpg" alt="This is an image of a jail cell">
+
+    <!-- an unordered list is bullets -->
+    <h3>Here comes an unordered list</h3>
+    <ul>
+        <li>this is the first item</li>
+        <li>this is the second item</li>
+        <li>this is the third item</li>
+        <li>this is the fourth item</li>
+    </ul>
+
+    <!-- an ordered list has numbers -->
+    <h3>Here comes an uordered list</h3>
+    <ol>
+        <!-- you can style and link 'list items' -->
+        <li style="display: inline;"><a href="https://revature.com">this is the first item |</a></li>
+        <li style="display: inline;">this is the second item |</li>
+        <li style="display: inline;">this is the third item |</li>
+        <li style="display: inline;">this is the fourth item |</li>
+    </ol>
+
+    <!-- a table has to main parts. Head adn Body. the body is further divided into 'tr' table rows, and 'td' table data elements.-->
+    <table>
+        <thead>
+            <th style="text-align:left">City</th>
+            <th style="text-align:left">State</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Crowley</td>
+                <td>Texas</td>
+            </tr>
+            <tr>
+                <td>Fort Worth</td>
+                <td>Texas</td>
+            </tr>
+            <tr>
+                <td>Fort Worth</td>
+                <td>Texas</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- there are special codes that give you whatever symbol you want to have. just type it as text and the browser will do the rest. -->
+    <h1>This is a copyright symbol => &copy</h1>
+    <h1>This is a greaterThan symbol => &gt</h1>
+    <h1>This is a lessThan symbol => &lt</h1>
+    <h1>This is a Pi symbol => &#x213C</h1>
+    <h1>This is a non-breaking space =>&nbsp;<= </h1>
+
+            <!-- a form has many different inputs and labels. -->
+            <!-- the 'action' tells where the form will be sent... method tells which type of form it is. HTTP Verbs: PUT, GET, POST, etc -->
+            <form action="http://www.revature.com" method="POST">
+                <label for="name">Enter Your Name:</label>
+                <br>
+                <!-- text == string -->
+                <input type="text" id="name" placeholder="name" readonly>
+                <br>
+                <!-- email ==  email format only -->
+                <label for="email">Enter your email:</label>
+                <br>
+                <input type="email" id="email">
+                <br>
+                <!-- number ==  numbers only -->
+                <label for="phoneNumber">Enter your Phone number:</label>
+                <br>
+                <input type="number">
+                <br>
+                <label for="pswrd">Enter your password:</label>
+                <br>
+                <!-- password == you can't see the characters. just dots -->
+                <input type="password" id="pswrd" placeholder="enter a color">
+                <br>
+                <!-- place a submit anywhere inside the form to submit the data collected -->
+                <input type="submit" value="Submit Your Data">
+                <br>
+                <!-- file == link a file from your computer -->
+                <input type="file">
+                <br>
+                <!-- hidden == this isn't shown on the page. usefule for sending passing some data through that you need on the other side. -->
+                <input type="hidden">
+                <br>
+                <!-- color ==  gives you a color-picker -->
+                <input type="color" disabled>
+                <br>
+                <!-- select is a dropdown list -->
+                <select name="selectFruits" id="fruits">
+                    <option value="manzana">Apple</option>
+                    <option value="pera">Pear</option>
+                    <!-- makes the below automatically selected as the choice -->
+                    <option value="durazno" selected> Peach</option>
+                    <option value="uva">Grape</option>
+                    <option value="frambueza">Raspberry</option>
+                </select>
+            </form>
+</body>
+
+</html>
