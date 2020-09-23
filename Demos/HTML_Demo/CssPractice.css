@@ -10,7 +10,7 @@ p{
     /* color: red; */
 }
 
-/* OVERRIDDEN BY INLINE STYLING. Any element with id div1 will have putple text */
+/* OVERRIDDEN BY INLINE STYLING. Any element with id div1 will have purple text */
 #div1{
     /* color: purple; */
 }

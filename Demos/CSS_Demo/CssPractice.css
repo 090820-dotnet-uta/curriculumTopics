@@ -1,0 +1,162 @@
+
+/* All h1 elements will have blue text and be of sixe 20 pixels */
+h1 {
+    color: blue;
+    font-size: 20px;
+}
+
+.class1{
+    width: 200px;
+    background-color: hotpink;
+    font-size: 100px;
+    outline-color: indigo;
+    border:20px solid black;
+    outline-style: dotted;
+    visibility: hidden;
+}
+
+.class1:hover{
+    width: 210px;
+    background-color:lemonchiffon;
+    font-size: 105px;
+    outline-width: 20px solid black;
+    outline-color:lightblue;
+    border:20px solid black;
+    visibility:visible;
+}
+
+
+/* all paragraph text will be red */
+p{
+    color: red;
+}
+
+/* OVERRIDDEN BY INLINE STYLING. Any element with id div1 will have purple text */
+#div1{
+    color: purple !important;
+}
+
+/* and h1 id will have this style */
+#h1{
+    /* margin: 10px;
+    border: red;
+    border-style: dotted;
+    width: 200px; */
+}
+
+/* any element with class 'centeredClass' will pop to the center and change color to grey whe hovered over */
+.centeredClass:hover{
+    /* text-align: center;
+    color: grey; */
+}
+
+/* any 6th nested paragraph element of any other 
+element will have 20pixel, brown padding thats 20%
+of the page width of hte page and have white text that turns black when you hover over it.   */
+/* TRY ADDING HOVER TO THIS! */
+p:nth-child(9){
+    padding: 20px;
+    background: brown;
+    color: white;
+    text-align: center;
+    width: 20%;
+}
+p:nth-child(7):hover{
+    color: black;
+}
+
+/* hide the list when you hover over it. 
+The whole page changes formet. */
+ul.unorderedList:hover{
+    display: none;
+}
+
+a:visited{
+    color: red;
+}
+
+/* changes the first line of a paragraph pink */
+p.firstLine::first-line{
+    /* color: blueviolet; */
+}
+
+p.firstLine::first-letter{
+    /* color: black;
+    font-size: 200px; */
+}
+
+p::after{
+    /* content: "THIS IS AFTER THE PARAGRAPH";
+    background-color: orange; */
+}
+
+p.firstLine::before{
+    content: "This is before the p.firstLine";
+    background-color: blue;
+}
+
+#div2 p{
+    text-decoration: blue wavy underline;
+}
+
+/* makes any tr child of a tbody royalblue color text*/
+tbody > tr {
+    color: royalblue;
+    text-align: right;
+    font-style: italic;
+    /* width: 100px; */
+}
+
+/* the first tr after a tr will have a black background */
+tr + tr{
+    background-color: black;
+}
+
+.boxModelExample{
+    background-color: lightcoral;
+    color:white;
+    width: 300px;
+    padding: 20px;
+    border: 5px dashed black;
+    background-clip: unset;
+    box-shadow: 5px 5px black;
+    margin: 50px ;
+}
+
+/* specificity example 
+the #id wins bc it's the most specific.
+the inline wins over all bc its closest to the element.*/
+#specificityId {
+    /* background-color: red; */
+}
+
+div {
+    /* background-color: whitesmoke; */
+}
+
+.specificityClass {
+    /* background-color: brown; */
+}
+
+.pClass{
+    font-size: 25px;
+}
+
+span{
+    font-size: 10px;
+}
+
+.pClass span{
+    color: purple;
+    font-size: inherit;
+    display: block;
+    /* position: absolute; */
+}
+
+
+
+
+
+
+
+
