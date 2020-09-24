@@ -158,12 +158,13 @@ namespace RPS_GameMvc.Controllers
 			if (id == lgp.PlayerId)
 			{
 				TempData["deletedMyself"] = "Looks like you deleted ourself. Please user a unique name to log in and create your account again.";
+				players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
 				return RedirectToAction("Logout", id);
 			}
 			players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
 			SaveChanges();
 
-			return View("PlayerList");
+			return RedirectToAction("PlayerList");//was just 'return View("PlayerList") without including the List of players. DERP
 		}
 
 		/// <summary>
