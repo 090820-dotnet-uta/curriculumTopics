@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using RPS_GameMvc.Models;
+using RPS_GameMvc.GamePlay;
 
 namespace RPS_GameMvc.Controllers
 {
@@ -14,15 +15,16 @@ namespace RPS_GameMvc.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 		private IMemoryCache _cache;
-		List<Player> players;
-		List<Game> games;
-		List<Round> rounds;
+		private Rps_Game _game;
+		List<Player> players = new List<Player>();
+		List<Game> games = new List<Game>();
+		List<Round> rounds = new List<Round>();
 
-		public HomeController(ILogger<HomeController> logger, IMemoryCache cache)
+		public HomeController(ILogger<HomeController> logger, IMemoryCache cache, Rps_Game game)
 		{
 			_logger = logger;
 			_cache = cache;
-
+			_game = game;
 			//if the _cache doesn't have a players list, create one.
 			if(!_cache.TryGetValue("players", out players))
 			{
@@ -164,7 +166,7 @@ namespace RPS_GameMvc.Controllers
 			players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
 			SaveChanges();
 
-			return RedirectToAction("PlayerList");//was just 'return View("PlayerList") without including the List of players. DERP
+			return RedirectToAction("PlayerList");
 		}
 
 		/// <summary>
@@ -179,5 +181,14 @@ namespace RPS_GameMvc.Controllers
 			return View("Index");
 		}
 
+		public IActionResult PlayGame()
+		{
+			//call the Rps_Game PLayGame method.
+			//that method returns a completed Game.
+			
+			Game myGame = _game.PlayAGame(players, rounds, games);
+
+			return View(myGame);
+		}
 	}
 }

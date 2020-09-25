@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RPS_GameMvc.GamePlay;
 
 namespace RPS_GameMvc
 {
@@ -25,6 +26,7 @@ namespace RPS_GameMvc
 		{
 			services.AddControllersWithViews();
 			services.AddMemoryCache();
+			services.AddSingleton<Rps_Game>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
