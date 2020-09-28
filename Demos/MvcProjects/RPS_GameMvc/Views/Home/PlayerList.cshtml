@@ -42,10 +42,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Losses)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "EditPlayer", new { id=item.PlayerId }) |
-                @Html.ActionLink("Delete", "DeletePlayer", new { id=item.PlayerId })
-            </td>
+			<td>
+				@Html.ActionLink("Edit", "EditPlayer", new { id = item.PlayerId }) |
+				@Html.ActionLink("Details", "PlayerDetails", new { id = item.PlayerId })
+				@Html.ActionLink("Delete", "DeletePlayer", new { id = item.PlayerId })
+			</td>
         </tr>
 }
     </tbody>

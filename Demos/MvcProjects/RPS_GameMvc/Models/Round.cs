@@ -7,7 +7,7 @@ namespace RPS_GameMvc.Models
 {
 	public class Round
 	{
-        public int RoundId { get; set; } = 0;
+        public int RoundId { get; set; }
         public Player player1 { get; set; }
         public Player Computer { get; set; }
         public Choice p1Choice { get; set; }

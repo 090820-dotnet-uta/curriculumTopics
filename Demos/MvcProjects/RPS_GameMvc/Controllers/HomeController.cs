@@ -26,7 +26,7 @@ namespace RPS_GameMvc.Controllers
 			_cache = cache;
 			_game = game;
 			//if the _cache doesn't have a players list, create one.
-			if(!_cache.TryGetValue("players", out players))
+			if (!_cache.TryGetValue("players", out players))
 			{
 				_cache.Set("players", new List<Player>());
 				_cache.TryGetValue("players", out players);
@@ -70,17 +70,18 @@ namespace RPS_GameMvc.Controllers
 		[HttpPost]
 		public IActionResult Login(string fname)
 		{
-			//see if the name is already in  players list
-			Player p1 = players.FirstOrDefault(p => p.Name == fname);
+			Player p1 = _game.GameLogin(fname);
+			////see if the name is already in  players list
+			//Player p1 = players.FirstOrDefault(p => p.Name == fname);
 
-			//OR create the player instance and save that player
-			if (p1 == null)
-			{
-				p1 = new Player()
-				{
-					Name = fname
-				};
-			}
+			////OR create the player instance and save that player
+			//if (p1 == null)
+			//{
+			//	p1 = new Player()
+			//	{
+			//		Name = fname
+			//	};
+			//}
 			 return RedirectToAction("AddPlayer", p1);
 		}
 
@@ -91,27 +92,36 @@ namespace RPS_GameMvc.Controllers
 		/// <returns></returns>
 		public IActionResult AddPlayer(Player player)
 		{
-			if(player.PlayerId == -1)
-			{
-				Player pHighId = players.OrderByDescending(p => p.PlayerId).FirstOrDefault();
-				if(pHighId == null)
-				{
-					player.PlayerId = 1;
-				}
-				else{
-					player.PlayerId = pHighId.PlayerId + 1;
-				}
-				_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
-				players.Add(player);
-				SaveChanges();
-			}
+			player = _game.GameAddPlayer(player);
+
+			//if(player.PlayerId == -1)
+			//{
+			//	Player pHighId = players.OrderByDescending(p => p.PlayerId).FirstOrDefault();
+			//	if(pHighId == null)
+			//	{
+			//		player.PlayerId = 1;
+			//	}
+			//	else{
+			//		player.PlayerId = pHighId.PlayerId + 1;
+			//	}
+			//	_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
+			//	players.Add(player);
+			//	SaveChanges();
+			//}
 			return View(player);
 		}
 
+		/// <summary>
+		/// takes an id and returns the View to edit a player.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public IActionResult EditPlayer(int id)
 		{
-			Player player = players.Where(x => x.PlayerId == id).FirstOrDefault();
-			if(player == null)
+			Player player = _game.GameEditPlayer(id);
+
+			//Player player = players.Where(x => x.PlayerId == id).FirstOrDefault();
+			if (player == null)
 			{
 				ViewData["notFound"] = "That player was not found! Please choose another";
 				return View("PlayerList");
@@ -122,49 +132,52 @@ namespace RPS_GameMvc.Controllers
 		[HttpPost]
 		public IActionResult EditPlayer(Player editedPlayer)
 		{
-			
-			Player player = players.Where(x => x.PlayerId == editedPlayer.PlayerId).FirstOrDefault();
-			if (player == null)
+			bool player = _game.GameEditPlayer(editedPlayer);
+
+			//Player player = players.Where(x => x.PlayerId == editedPlayer.PlayerId).FirstOrDefault();
+			if (player == false)
 			{
 				ViewData["notFound"] = "That player was not found! Please choose another";
 				return View("PlayerList");
 			}
 
-			player.Name = editedPlayer.Name;
-			player.Wins = editedPlayer.Wins;
-			player.Losses = editedPlayer.Losses;
+			//player.Name = editedPlayer.Name;
+			//player.Wins = editedPlayer.Wins;
+			//player.Losses = editedPlayer.Losses;
 
-			//test is we can just say =
-			//player = editedPlayer;
-			SaveChanges();
+			////test is we can just say =
+			////player = editedPlayer;
+			//SaveChanges();
 
 			return RedirectToAction("PlayerList");
 		}
 
-		public IActionResult PlayerDetails(Player player)
+		public IActionResult PlayerDetails(int id)
 		{
-			throw new NotImplementedException("PlayerDetails not implemented yet");
+			//reuse the GameEditPlayer method to get the player object of the param id.
+			return View(_game.GameEditPlayer(id));
 		}
 
 		//playersList action here
 		public IActionResult PlayerList()
 		{
-			return View(players);
+			return View(_game.GamePlayerList());
 		}
 
 		public IActionResult DeletePlayer(int id)
 		{
-			//check that the player being deleted is the player logged in.
-			//log him out and redirect to login page. with a message
-			Player lgp = (Player)_cache.Get("loggedInPlayer");
-			if (id == lgp.PlayerId)
+			bool deletedSelf = _game.GameDeletePlayer(id);
+			////check that the player being deleted is the player logged in.
+			////log him out and redirect to login page. with a message
+			//Player lgp = (Player)_cache.Get("loggedInPlayer");
+			if (!deletedSelf)
 			{
 				TempData["deletedMyself"] = "Looks like you deleted ourself. Please user a unique name to log in and create your account again.";
-				players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
+				//players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
 				return RedirectToAction("Logout", id);
 			}
-			players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
-			SaveChanges();
+			//players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
+			//SaveChanges();
 
 			return RedirectToAction("PlayerList");
 		}
@@ -176,7 +189,8 @@ namespace RPS_GameMvc.Controllers
 		/// <returns></returns>
 		public IActionResult Logout()
 		{
-			_cache.Remove("loggedInPlayer");
+			_game.GameLogout();
+			//_cache.Remove("loggedInPlayer");
 
 			return View("Index");
 		}
@@ -186,7 +200,7 @@ namespace RPS_GameMvc.Controllers
 			//call the Rps_Game PLayGame method.
 			//that method returns a completed Game.
 			
-			Game myGame = _game.PlayAGame(players, rounds, games);
+			Game myGame = _game.PlayAGame();
 
 			return View(myGame);
 		}

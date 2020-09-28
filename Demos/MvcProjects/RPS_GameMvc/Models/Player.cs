@@ -8,7 +8,7 @@ namespace RPS_GameMvc.Models
 {
 	public class Player
 	{
-        public int PlayerId { get; set; } = -1;
+        public int PlayerId { get; set; }
         public string Name { get; set; } = "null";
         
         [Range(0, int.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]

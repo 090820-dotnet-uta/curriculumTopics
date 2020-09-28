@@ -7,7 +7,7 @@ namespace RPS_GameMvc.Models
 {
 	public class Game
 	{
-        public int GameId { get; set; } = 0;
+        public int GameId { get; set; }
         //[Required]
         public Player Player1 { get; set; }
         public Player Computer { get; set; }
