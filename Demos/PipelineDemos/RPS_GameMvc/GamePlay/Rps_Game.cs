@@ -17,36 +17,13 @@ namespace RPS_GameMvc.GamePlay
 		private readonly ILogger<Rps_Game> _logger;
 		private IMemoryCache _cache;
 		private readonly DbContextClass _context;
-		//List<Player> players = new List<Player>();
-		//List<Game> games = new List<Game>();
-		//List<Round> rounds = new List<Round>();
-		//public Rps_Game(){}
-		
 
 		public Rps_Game(ILogger<Rps_Game> logger, IMemoryCache cache, DbContextClass context)
 		{
 			_logger = logger;
 			_cache = cache;
 			_context = context;
-			//if the _cache doesn't have a players list, create one.
-			//if (!_cache.TryGetValue("players", out players))
-			//{
-			//	_cache.Set("players", new List<Player>());
-			//	_cache.TryGetValue("players", out players);
-			//	_cache.TryGetValue("games", out games);
-			//	_cache.TryGetValue("rounds", out rounds);
-			//}
 		}
-
-		/// <summary>
-/// saves the current players, rounds, and games lists to the cache.
-/// </summary>
-		//public void SaveChanges()
-		//{
-		//	_cache.Set("players", players);
-		//	_cache.Set("games", games);
-		//	_cache.Set("rounds", rounds);
-		//}
 
 		public Game PlayAGame()
 		{
@@ -65,7 +42,6 @@ namespace RPS_GameMvc.GamePlay
 			}
 
 			Player p1;//the out variable for the player
-			//get the player name. this is a place to make sure the user isn't using forbidden words or symbols
 			if (!_cache.TryGetValue("loggedInPlayer", out p1))
 			{
 				_logger.LogInformation("There was no loggedInPlayer in the cache");
@@ -78,8 +54,6 @@ namespace RPS_GameMvc.GamePlay
 			game.Player1 = p1;//
 			game.Computer = computer;//
 
-			//play rounds till one player has 2 wins
-			//assign the winner to the game and check that property to break out of the loop.
 			while (game.winner.Name == "null")
 			{
 				Round round = new Round();	//declare a round for this iteration
@@ -141,22 +115,6 @@ namespace RPS_GameMvc.GamePlay
 		
 		public Player GameAddPlayer(Player player)
 		{
-			//is it's a new player, then see if it's the first to give id=1 OR give an id 1 more than the highest id so far
-			//if (player.PlayerId == null)
-			//{
-			//Player pHighId = _context.Players.OrderByDescending(p => p.PlayerId).FirstOrDefault();
-			//if (pHighId == null)
-			//{
-			//	player.PlayerId = 1;
-			//}
-			//else
-			//{
-			//	player.PlayerId = pHighId.PlayerId + 1;
-			//}
-			//	_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
-			//	_context.Players.Add(player);
-			//	_context.SaveChanges();
-			//}
 			_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
 			return player;
 		}
@@ -167,8 +125,6 @@ namespace RPS_GameMvc.GamePlay
 			if (player == null)
 			{
 				return null;
-				//ViewData["notFound"] = "That player was not found! Please choose another";
-				//return View("PlayerList");
 			}
 			return player;
 		}
@@ -179,15 +135,11 @@ namespace RPS_GameMvc.GamePlay
 			if (player == null)
 			{
 				return false;
-				//ViewData["notFound"] = "That player was not found! Please choose another";
-				//return View("PlayerList");
 			}
 			player.Name = editedPlayer.Name;
 			player.Wins = editedPlayer.Wins;
 			player.Losses = editedPlayer.Losses;
 
-			//test is we can just say =
-			//player = editedPlayer;
 			_context.SaveChanges();
 			return true;
 		}
@@ -202,16 +154,21 @@ namespace RPS_GameMvc.GamePlay
 			//check that the player being deleted is the player logged in.
 			//log him out and redirect to login page. with a message
 			Player lgp = (Player)_cache.Get("loggedInPlayer");
-			if (id == lgp.PlayerId)
-			{
+			try{
+				if (id == lgp.PlayerId)
+				{
+					_context.Players.Remove(_context.Players.Where(x => x.PlayerId == id).FirstOrDefault());
+					_context.SaveChanges();
+					return false;
+				}
 				_context.Players.Remove(_context.Players.Where(x => x.PlayerId == id).FirstOrDefault());
 				_context.SaveChanges();
-				return false;
-				//TempData["deletedMyself"] = "Looks like you deleted ourself. Please user a unique name to log in and create your account again.";
-				//return RedirectToAction("Logout", id);
 			}
-			_context.Players.Remove(_context.Players.Where(x => x.PlayerId == id).FirstOrDefault());
-			_context.SaveChanges();
+			catch(Exception ex){
+				_logger.LogError(ex, "\n\nThe player had played a game and could not be deleted.\n\n");
+				return false;
+			}
+
 			return true;
 		}
 
@@ -219,9 +176,5 @@ namespace RPS_GameMvc.GamePlay
 		{
 			_cache.Remove("loggedInPlayer");
 		}
-
-		//RpsGameMethods.PrintAllCurrentData(context.Games.ToList(), context.Players.ToList(), context.Rounds.ToList());
-		//  }
-	
 	}//end of class
 }//end of namespace

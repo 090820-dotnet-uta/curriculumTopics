@@ -172,7 +172,7 @@ namespace RPS_GameMvc.Controllers
 			//Player lgp = (Player)_cache.Get("loggedInPlayer");
 			if (!deletedSelf)
 			{
-				TempData["deletedMyself"] = "Looks like you deleted ourself. Please user a unique name to log in and create your account again.";
+				TempData["deletedMyself"] = "Looks like you deleted ourself or this player cannot be deleted because he has played a game. \nPlease user a unique name to log in and create your account again.";
 				//players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
 				return RedirectToAction("Logout", id);
 			}
