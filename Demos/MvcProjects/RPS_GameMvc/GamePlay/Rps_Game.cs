@@ -17,25 +17,12 @@ namespace RPS_GameMvc.GamePlay
 		private readonly ILogger<Rps_Game> _logger;
 		private IMemoryCache _cache;
 		private readonly DbContextClass _context;
-		//List<Player> players = new List<Player>();
-		//List<Game> games = new List<Game>();
-		//List<Round> rounds = new List<Round>();
-		//public Rps_Game(){}
-		
 
 		public Rps_Game(ILogger<Rps_Game> logger, IMemoryCache cache, DbContextClass context)
 		{
 			_logger = logger;
 			_cache = cache;
 			_context = context;
-			//if the _cache doesn't have a players list, create one.
-			//if (!_cache.TryGetValue("players", out players))
-			//{
-			//	_cache.Set("players", new List<Player>());
-			//	_cache.TryGetValue("players", out players);
-			//	_cache.TryGetValue("games", out games);
-			//	_cache.TryGetValue("rounds", out rounds);
-			//}
 		}
 
 		/// <summary>
@@ -74,7 +61,6 @@ namespace RPS_GameMvc.GamePlay
 
 			p1 = _context.Players.Where(x => x.PlayerId == p1.PlayerId).FirstOrDefault();
 			Game game = new Game();// create a game
-			//_context.Players.Add(p1);
 			game.Player1 = p1;//
 			game.Computer = computer;//
 
@@ -141,22 +127,6 @@ namespace RPS_GameMvc.GamePlay
 		
 		public Player GameAddPlayer(Player player)
 		{
-			//is it's a new player, then see if it's the first to give id=1 OR give an id 1 more than the highest id so far
-			//if (player.PlayerId == null)
-			//{
-			//Player pHighId = _context.Players.OrderByDescending(p => p.PlayerId).FirstOrDefault();
-			//if (pHighId == null)
-			//{
-			//	player.PlayerId = 1;
-			//}
-			//else
-			//{
-			//	player.PlayerId = pHighId.PlayerId + 1;
-			//}
-			//	_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
-			//	_context.Players.Add(player);
-			//	_context.SaveChanges();
-			//}
 			_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
 			return player;
 		}
@@ -219,9 +189,5 @@ namespace RPS_GameMvc.GamePlay
 		{
 			_cache.Remove("loggedInPlayer");
 		}
-
-		//RpsGameMethods.PrintAllCurrentData(context.Games.ToList(), context.Players.ToList(), context.Rounds.ToList());
-		//  }
-	
 	}//end of class
 }//end of namespace
