@@ -16,9 +16,9 @@ namespace RPS_GameMvc.Controllers
 		private readonly ILogger<HomeController> _logger;
 		private IMemoryCache _cache;
 		private Rps_Game _game;
-		List<Player> players = new List<Player>();
-		List<Game> games = new List<Game>();
-		List<Round> rounds = new List<Round>();
+		//List<Player> players = new List<Player>();
+		//List<Game> games = new List<Game>();
+		//List<Round> rounds = new List<Round>();
 
 		public HomeController(ILogger<HomeController> logger, IMemoryCache cache, Rps_Game game)
 		{
@@ -26,24 +26,24 @@ namespace RPS_GameMvc.Controllers
 			_cache = cache;
 			_game = game;
 			//if the _cache doesn't have a players list, create one.
-			if (!_cache.TryGetValue("players", out players))
-			{
-				_cache.Set("players", new List<Player>());
-				_cache.TryGetValue("players", out players);
-				_cache.TryGetValue("games", out games);
-				_cache.TryGetValue("rounds", out rounds);
-			}
+			//if (!_cache.TryGetValue("players", out players))
+			//{
+			//	_cache.Set("players", new List<Player>());
+			//	_cache.TryGetValue("players", out players);
+			//	_cache.TryGetValue("games", out games);
+			//	_cache.TryGetValue("rounds", out rounds);
+			//}
 		}
 
 		/// <summary>
 		/// saves the current players, rounds, and games lists to the cache.
 		/// </summary>
-		public void SaveChanges()
-		{
-			_cache.Set("players", players);
-			_cache.Set("games", games);
-			_cache.Set("rounds", rounds);
-		}
+		//public void SaveChanges()
+		//{
+		//	_cache.Set("players", players);
+		//	_cache.Set("games", games);
+		//	_cache.Set("rounds", rounds);
+		//}
 
 		public IActionResult Index()
 		{
@@ -71,17 +71,6 @@ namespace RPS_GameMvc.Controllers
 		public IActionResult Login(string fname)
 		{
 			Player p1 = _game.GameLogin(fname);
-			////see if the name is already in  players list
-			//Player p1 = players.FirstOrDefault(p => p.Name == fname);
-
-			////OR create the player instance and save that player
-			//if (p1 == null)
-			//{
-			//	p1 = new Player()
-			//	{
-			//		Name = fname
-			//	};
-			//}
 			 return RedirectToAction("AddPlayer", p1);
 		}
 
@@ -93,21 +82,6 @@ namespace RPS_GameMvc.Controllers
 		public IActionResult AddPlayer(Player player)
 		{
 			player = _game.GameAddPlayer(player);
-
-			//if(player.PlayerId == -1)
-			//{
-			//	Player pHighId = players.OrderByDescending(p => p.PlayerId).FirstOrDefault();
-			//	if(pHighId == null)
-			//	{
-			//		player.PlayerId = 1;
-			//	}
-			//	else{
-			//		player.PlayerId = pHighId.PlayerId + 1;
-			//	}
-			//	_cache.Set("loggedInPlayer", player);//set this player as the player logged in.
-			//	players.Add(player);
-			//	SaveChanges();
-			//}
 			return View(player);
 		}
 
@@ -140,15 +114,6 @@ namespace RPS_GameMvc.Controllers
 				ViewData["notFound"] = "That player was not found! Please choose another";
 				return View("PlayerList");
 			}
-
-			//player.Name = editedPlayer.Name;
-			//player.Wins = editedPlayer.Wins;
-			//player.Losses = editedPlayer.Losses;
-
-			////test is we can just say =
-			////player = editedPlayer;
-			//SaveChanges();
-
 			return RedirectToAction("PlayerList");
 		}
 
@@ -169,15 +134,12 @@ namespace RPS_GameMvc.Controllers
 			bool deletedSelf = _game.GameDeletePlayer(id);
 			////check that the player being deleted is the player logged in.
 			////log him out and redirect to login page. with a message
-			//Player lgp = (Player)_cache.Get("loggedInPlayer");
 			if (!deletedSelf)
 			{
 				TempData["deletedMyself"] = "Looks like you deleted ourself or this player cannot be deleted because he has played a game. \nPlease user a unique name to log in and create your account again.";
 				//players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
 				return RedirectToAction("Logout", id);
 			}
-			//players.Remove(players.Where(x => x.PlayerId == id).FirstOrDefault());
-			//SaveChanges();
 
 			return RedirectToAction("PlayerList");
 		}
@@ -190,8 +152,6 @@ namespace RPS_GameMvc.Controllers
 		public IActionResult Logout()
 		{
 			_game.GameLogout();
-			//_cache.Remove("loggedInPlayer");
-
 			return View("Index");
 		}
 
@@ -199,9 +159,7 @@ namespace RPS_GameMvc.Controllers
 		{
 			//call the Rps_Game PLayGame method.
 			//that method returns a completed Game.
-			
 			Game myGame = _game.PlayAGame();
-
 			return View(myGame);
 		}
 	}

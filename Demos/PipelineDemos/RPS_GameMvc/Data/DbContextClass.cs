@@ -14,8 +14,7 @@ namespace RPS_GameMvc.Data
 		public DbSet<Round> Rounds { get; set; }
 		public DbSet<Game> Games { get; set; }
 
-		public DbContextClass()
-		{		}
+		public DbContextClass(){ }
 
 		public DbContextClass(DbContextOptions<DbContextClass> options) : base(options)
 		{

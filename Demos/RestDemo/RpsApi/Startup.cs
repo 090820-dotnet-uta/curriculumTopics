@@ -11,10 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using TodoApi.GamePlay;
-using TodoApi.Models;
+using RpsApi.DbAcces;
 
-namespace TodoApi
+namespace RpsApi
 {
 	public class Startup
 	{
@@ -28,10 +27,7 @@ namespace TodoApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			//services.AddDbContext<DatabContext>(opt => opt.UseInMemoryDatabase("TodoList"));
-			services.AddMemoryCache();
-			services.AddScoped<Rps_Game>();
-			services.AddDbContext<DatabContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureDbConnectionString")));
+			services.AddDbContext<DatabaseAccess>( options => options.UseSqlServer(Configuration.GetConnectionString("AzureDbConnectionString")));
 			services.AddControllers();
 		}
 
@@ -49,7 +45,6 @@ namespace TodoApi
 
 			app.UseAuthorization();
 
-			//notice there is not default route like in MVC
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
