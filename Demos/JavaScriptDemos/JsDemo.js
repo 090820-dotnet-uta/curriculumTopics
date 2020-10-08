@@ -143,6 +143,39 @@ let obj1 = JSON.parse(jsonObj);
 console.log(obj1);
 
 //send alerts to the browser screen. this is useful for confirming clicks and submissions etc...
-alert(`The JSON Stringified object is => ${jsonObj}`);
+//alert(`The JSON Stringified object is => ${jsonObj}`);
 
 //DOM manipulation below
+let para = document.getElementsByTagName("p");
+para[0].textContent = "The text is changed";
+para[0].style.color = "orange";
+
+let h1s = document.getElementsByTagName("h1");
+h1s[0].style.color = "pink";
+
+let h1id = document.getElementById("h1id");
+h1id.style.color = "brown";
+
+let bodyChild = document.body.childNodes;
+//apparently a list is not Zero indexed.
+bodyChild[2].textContent = "This is the second child of the body";
+
+///////////////
+
+let buble = document.getElementsByClassName("buble")[0];
+let bubble = document.getElementsByClassName("bubble")[0];
+
+buble.addEventListener("mouseover", () => (buble.style.fontWeight = "900"));
+// buble.addEventListener("mouseout", () => (buble.style.fontWeight = "100"));
+
+bubble.addEventListener("mouseover", () => (bubble.style.fontWeight = "100"));
+
+/////////////
+let body = document.body;
+let newNode = document.createElement("p");
+newNode.textContent = "This is a new Node and child of the body";
+
+body.appendChild(newNode);
+
+newNode.addEventListener("mouseover", () => (newNode.style.fontWeight = "900"));
+newNode.addEventListener("mouseout", () => (newNode.style.fontWeight = "100"));
