@@ -144,3 +144,5 @@ console.log(obj1);
 
 //send alerts to the browser screen. this is useful for confirming clicks and submissions etc...
 alert(`The JSON Stringified object is => ${jsonObj}`);
+
+//DOM manipulation below
