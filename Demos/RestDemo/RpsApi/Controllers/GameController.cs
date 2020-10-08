@@ -12,7 +12,7 @@ using RpsApi.Models;
 
 namespace RpsApi.Controllers
 {
-	[Route("api/game")]
+	[Route("~/api/[controller]")]
 	[ApiController]
 	public class GameController : ControllerBase
 	{
@@ -20,23 +20,12 @@ namespace RpsApi.Controllers
 		private readonly ILogger<GameController> _logger;
 		private IMemoryCache _cache;
 		private Rps_Game _game;
-		//List<Player> players = new List<Player>();
-		//List<Game> games = new List<Game>();
-		//List<Round> rounds = new List<Round>();
 
 		public GameController(ILogger<GameController> logger, IMemoryCache cache, Rps_Game game)
 		{
 			_logger = logger;
 			_cache = cache;
 			_game = game;
-			//if the _cache doesn't have a players list, create one.
-			//if (!_cache.TryGetValue("players", out players))
-			//{
-			//	_cache.Set("players", new List<Player>());
-			//	_cache.TryGetValue("players", out players);
-			//	_cache.TryGetValue("games", out games);
-			//	_cache.TryGetValue("rounds", out rounds);
-			//}
 		}
 
 		/// <summary>
@@ -73,7 +62,7 @@ namespace RpsApi.Controllers
 		/// <returns></returns>
 		[Route("~/api/game/Login/{fname}")]
 		[HttpPost]
-		public ActionResult Login(string fname)
+		public ActionResult<Player> Login(string fname)
 		{
 			Player p1 = _game.GameLogin(fname);
 			////see if the name is already in  players list
@@ -87,7 +76,7 @@ namespace RpsApi.Controllers
 			//		Name = fname
 			//	};
 			//}
-			return RedirectToAction("AddPlayer", p1);
+			return AddPlayer(p1);
 		}
 
 		/// <summary>
@@ -95,6 +84,8 @@ namespace RpsApi.Controllers
 		/// </summary>
 		/// <param name="player"></param>
 		/// <returns></returns>
+		[Route("~/api/game/AddPlayer")]
+		[HttpPost]
 		public ActionResult<Player> AddPlayer(Player player)
 		{
 			player = _game.GameAddPlayer(player);
@@ -140,6 +131,7 @@ namespace RpsApi.Controllers
 		[HttpPut]
 		public ActionResult EditPlayer(Player editedPlayer)
 		{
+			Console.WriteLine(editedPlayer.ToString());
 			bool player = _game.GameEditPlayer(editedPlayer);
 
 			if (player == false)
@@ -160,6 +152,8 @@ namespace RpsApi.Controllers
 			return RedirectToAction("PlayerList");
 		}
 
+		[Route("~/api/game/PlayerDetails/{id}")]
+		[HttpGet]
 		public ActionResult<Player> PlayerDetails(int id)
 		{
 			//reuse the GameEditPlayer method to get the player object of the param id.
@@ -167,11 +161,15 @@ namespace RpsApi.Controllers
 		}
 
 		//playersList action here
-		public IEnumerable<ActionResult<Player>> PlayerList()
+		[Route("~/api/game/PlayerList")]
+		[HttpGet]
+		public ActionResult<List<Player>> PlayerList()
 		{
-			return (IEnumerable<ActionResult<Player>>)_game.GamePlayerList();
+			return _game.GamePlayerList().ToList();
 		}
 
+		[Route("~/api/game/DeletePlayer/{id}")]
+		[HttpDelete]
 		public ActionResult DeletePlayer(int id)
 		{
 			bool deletedSelf = _game.GameDeletePlayer(id);
@@ -191,24 +189,24 @@ namespace RpsApi.Controllers
 		/// and returns to the log in screen
 		/// </summary>
 		/// <returns></returns>
-		//public ActionResult Logout()
-		//{
-		//	_game.GameLogout();
-		//	//_cache.Remove("loggedInPlayer");
+		[Route("~/api/game/Logout")]
+		[HttpGet]
+		public ActionResult<Player> Logout()
+		{
+			Player p1 = _game.GameLogout();
+			//_cache.Remove("loggedInPlayer");
 
-		//	return View("Index");
-		//}
+			return p1;
+		}
 
-		//public IActionResult PlayGame()
-		//{
-		//	//call the Rps_Game PLayGame method.
-		//	//that method returns a completed Game.
-
-		//	Game myGame = _game.PlayAGame();
-
-		//	return View(myGame);
-		//}
-
-		//game action methods above.
+		[Route("~/api/game/PlayGame")]
+		[HttpGet]
+		public ActionResult<Game> PlayGame()
+		{
+			//call the Rps_Game PLayGame method.
+			//that method returns a completed Game.
+			Game myGame = _game.PlayAGame();
+			return myGame;
+		}
 	}
 }

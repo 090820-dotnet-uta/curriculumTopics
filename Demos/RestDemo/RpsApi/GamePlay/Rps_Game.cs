@@ -26,8 +26,8 @@ namespace RpsApi.GamePlay
 		}
 
 		/// <summary>
-/// saves the current players, rounds, and games lists to the cache.
-/// </summary>
+		/// saves the current players, rounds, and games lists to the cache.
+		/// </summary>
 		//public void SaveChanges()
 		//{
 		//	_cache.Set("players", players);
@@ -52,7 +52,6 @@ namespace RpsApi.GamePlay
 			}
 
 			Player p1;//the out variable for the player
-			//get the player name. this is a place to make sure the user isn't using forbidden words or symbols
 			if (!_cache.TryGetValue("loggedInPlayer", out p1))
 			{
 				_logger.LogInformation("There was no loggedInPlayer in the cache");
@@ -61,16 +60,15 @@ namespace RpsApi.GamePlay
 
 			p1 = _context.Players.Where(x => x.PlayerId == p1.PlayerId).FirstOrDefault();
 			Game game = new Game();// create a game
+								   //_context.Players.Add(p1);
 			game.Player1 = p1;//
 			game.Computer = computer;//
 
-			//play rounds till one player has 2 wins
-			//assign the winner to the game and check that property to break out of the loop.
 			while (game.winner.Name == "null")
 			{
-				Round round = new Round();	//declare a round for this iteration
-				round.player1 = p1;			// add user (p1) to this round
-				round.Computer = computer;	// add computer to this round
+				Round round = new Round();  //declare a round for this iteration
+				round.player1 = p1;         // add user (p1) to this round
+				round.Computer = computer;  // add computer to this round
 
 				//get the choices for the 2 players and insert the players choices directly into the round
 				round.p1Choice = Rps_GameMethods.GetRandomChoice();//this will give a random number starting at 0 to arg-1;
@@ -80,7 +78,7 @@ namespace RpsApi.GamePlay
 				_context.SaveChanges();
 				game.rounds.Add(round);//add this round to the games' List of rounds
 				int gameWinner = Rps_GameMethods.GetWinner(game);//get a number ot say is p1(1) or computer(2) won
-				
+
 				//assign the winner to the game and increment wins and losses for both
 				if (gameWinner == 1)
 				{
@@ -99,12 +97,11 @@ namespace RpsApi.GamePlay
 			_context.SaveChanges();
 			return game;
 		}
-		
+
 		public Player GameLogin(string fname)
 		{
 			//see if the name is already in  players list
 			Player p1 = _context.Players.FirstOrDefault(p => p.Name == fname);
-
 			//OR create the player instance and save that player
 			if (p1 == null)
 			{
@@ -162,9 +159,10 @@ namespace RpsApi.GamePlay
 			return true;
 		}
 
-		public List<Player> GamePlayerList()
+		public IEnumerable<Player> GamePlayerList()
 		{
-			return _context.Players.ToList();
+			IEnumerable<Player> p1s =  _context.Players.ToList();
+			return p1s;
 		}
 
 		public bool GameDeletePlayer(int id)
@@ -185,9 +183,22 @@ namespace RpsApi.GamePlay
 			return true;
 		}
 
-		public void GameLogout()
+		public Player GameLogout()
 		{
-			_cache.Remove("loggedInPlayer");
+			Player p1;
+			bool success = _cache.TryGetValue("loggedInPlayer", out p1);
+			if (success)
+			{
+				_cache.Remove("loggedInPlayer");
+				return p1;
+			}
+			else
+			{
+				return new Player()
+				{
+					Name = "There was an error with loggedInPlayer"
+				};
+			}
 		}
 	}//end of class
 }//end of namespace

@@ -12,16 +12,6 @@ namespace TodoApi.Models
         public DatabContext() { }
 
         public DatabContext(DbContextOptions<DatabContext> options) : base(options)
-        {
-
-        }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder options)
-        //{
-        //    if (!options.IsConfigured)
-        //    {
-        //        options.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=RPSDB;Trusted_Connection=True;");
-        //    }
-        //}
+        {  }
     }
 }

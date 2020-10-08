@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace RpsApi.Controllers
 {
 	[ApiController]
-	[Route("[controller]/[action]")]
+	[Route("[controller]")]
 	public class WeatherForecastController : ControllerBase
 	{
 		private static readonly string[] Summaries = new[]
@@ -23,6 +23,7 @@ namespace RpsApi.Controllers
 			_logger = logger;
 		}
 
+		//[Route("~/WeatherForecast/Get")]
 		[HttpGet]
 		public IEnumerable<WeatherForecast> Get()
 		{
@@ -34,23 +35,6 @@ namespace RpsApi.Controllers
 				Summary = Summaries[rng.Next(Summaries.Length)]
 			})
 			.ToArray();
-		}
-		
-		[Route("~/WeatherForecast/GonnaPostAName")]
-		[Route("~/WeatherForecast/GonnaPostAName/{name}")]
-		[Route("~/WeatherForecast/GonnaPostAName/{name}/{age}")]
-		[HttpPost]
-		public ActionResult<string> PostAName(string name, int age)
-		{
-			string newName = "Welcome " + name +" you are " + age + " years old";
-			return newName;
-		}
-
-		[Route("~/WeatherForecast/GonnaPostAName")]
-		[HttpGet]
-		public ActionResult<string> PostAName()
-		{
-			return "Jerryyy";
 		}
 	}
 }
