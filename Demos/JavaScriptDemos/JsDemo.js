@@ -182,219 +182,246 @@
 
 //////////////////////////
 //Day2
-let user = {
-	name,
-	size: 5,
-};
-// user.name = "Mark";
-user.address = "123 main";
-user.size = 5;
+// let user = {
+// 	name,
+// 	size: 5,
+// };
+// // user.name = "Mark";
+// user.address = "123 main";
+// user.size = 5;
 
-console.log(user.name);
-console.log(user.address);
-//this is a one-off function
-user.newFunction = function () {
-	alert(`you called ${this.address}= the addess....the function`);
-};
+// console.log(user.name);
+// console.log(user.address);
+// //this is a one-off function
+// user.newFunction = function () {
+// 	alert(`you called ${this.address}= the addess....the function`);
+// };
 
-// user.newFunction();
+// // user.newFunction();
 
-//reusesble function
-function alertMe() {
-	alert("this is an alert");
-}
+// //reusesble function
+// function alertMe() {
+// 	alert("this is an alert");
+// }
 
-user.alertMe = alertMe;
-// user.alertMe();
+// user.alertMe = alertMe;
+// // user.alertMe();
 
-let user2 = {};
-user2.assignedFunction = user.alertMe;
-// user2.assignedFunction();
+// let user2 = {};
+// user2.assignedFunction = user.alertMe;
+// // user2.assignedFunction();
 
-//use the 'in' keyword to see in a field exists in an object
-let myBool = "house" in user;
-console.log(myBool);
+// //use the 'in' keyword to see in a field exists in an object
+// let myBool = "house" in user;
+// console.log(myBool);
 
-user2.newFunction1 = user3;
-user2.newFunction1("Mark", "Moore");
+// user2.newFunction1 = user3;
+// user2.newFunction1("Mark", "Moore");
 
-function user3(fname, lname) {
-	console.log(`this is my name ${fname} ${lname}`);
-}
+// function user3(fname, lname) {
+// 	console.log(`this is my name ${fname} ${lname}`);
+// }
 
-function User(fname, lname) {
-	name, (this.lname = lname);
-	this.fname = fname;
-}
+// function User(fname, lname) {
+// 	name, (this.lname = lname);
+// 	this.fname = fname;
+// }
 
-//use the new keyword when creating new instances of a reusable object
-let user4 = new User("Laura", "Moore");
-// let user45 = User("laura1", "Moore1");//this doesn't work
-let user5 = new User("Bethany", "Moore");
-console.log(`${user4.fname} is her first name`);
-console.log(`${user5.lname} is her last name`);
-// console.log(`${user45.lname} is her last name`);
+// //use the new keyword when creating new instances of a reusable object
+// let user4 = new User("Laura", "Moore");
+// // let user45 = User("laura1", "Moore1");//this doesn't work
+// let user5 = new User("Bethany", "Moore");
+// console.log(`${user4.fname} is her first name`);
+// console.log(`${user5.lname} is her last name`);
+// // console.log(`${user45.lname} is her last name`);
 
-let square = class {
-	constructor(length) {
-		this.sideLength = length;
-	}
-	squareArea() {
-		return this.sideLength ** 2;
-	}
-};
+// let square = class {
+// 	constructor(length) {
+// 		this.sideLength = length;
+// 	}
+// 	squareArea() {
+// 		return this.sideLength ** 2;
+// 	}
+// };
 
-let square1 = new square(4);
-console.log(`the squares side length is ${square1.sideLength}`);
-let area = square1.squareArea();
-console.log(`the squares area is ${area}`);
-console.log(square1.name);
+// let square1 = new square(4);
+// console.log(`the squares side length is ${square1.sideLength}`);
+// let area = square1.squareArea();
+// console.log(`the squares area is ${area}`);
+// console.log(square1.name);
 
-let square2 = class Squares {
-	constructor(length) {
-		this.sideLength = length;
-		this.diagonal = Math.sqrt(2 * length ** 2);
-	}
+// let square2 = class Squares {
+// 	constructor(length) {
+// 		this.sideLength = length;
+// 		this.diagonal = Math.sqrt(2 * length ** 2);
+// 	}
 
-	get diag() {
-		//getter allows checking
-		return this.diagonal;
-	}
-	squareArea() {
-		return this.sideLength ** 2;
-	}
+// 	get diag() {
+// 		//getter allows checking
+// 		return this.diagonal;
+// 	}
+// 	squareArea() {
+// 		return this.sideLength ** 2;
+// 	}
 
-	//static fields are called through the class template (not an instance)
-	static Perimeter(square) {
-		return square.sideLength * 4;
-	}
-};
+// 	//static fields are called through the class template (not an instance)
+// 	static Perimeter(square) {
+// 		return square.sideLength * 4;
+// 	}
+// };
 
-let square6 = new square2(5);
-console.log(`the squares side length is ${square6.sideLength}`);
-let area1 = square6.squareArea();
-console.log(`the squares area is ${area1}`);
-console.log(square2.name);
+// let square6 = new square2(5);
+// console.log(`the squares side length is ${square6.sideLength}`);
+// let area1 = square6.squareArea();
+// console.log(`the squares area is ${area1}`);
+// console.log(square2.name);
 
-let perimeter = square2.Perimeter(square6);
-console.log(perimeter);
-console.log(square6.diag);
+// let perimeter = square2.Perimeter(square6);
+// console.log(perimeter);
+// console.log(square6.diag);
 
-class Human {
-	constructor(legs, arms) {
-		this.height = 6;
-		this.numLegs = legs;
-		this.numArms = arms;
-	}
-}
+// class Human {
+// 	constructor(legs, arms) {
+// 		this.height = 6;
+// 		this.numLegs = legs;
+// 		this.numArms = arms;
+// 	}
+// }
 
-//prototypal in heritance
-let child1 = Object.create(new Human(2, 2));
-console.log(child1.height);
-child1.numArms = 4;
-console.log(child1.numArms);
+// //prototypal in heritance
+// let child1 = Object.create(new Human(2, 2));
+// console.log(child1.height);
+// child1.numArms = 4;
+// console.log(child1.numArms);
 
-class Animal {
-	constructor(legs, arms) {
-		this.numLegs = legs;
-		this.numArms = arms;
-	}
+// class Animal {
+// 	constructor(legs, arms) {
+// 		this.numLegs = legs;
+// 		this.numArms = arms;
+// 	}
 
-	runSpeed() {
-		return `My ${this.numLegs} carry me fast.`;
-	}
-}
+// 	runSpeed() {
+// 		return `My ${this.numLegs} carry me fast.`;
+// 	}
+// }
 
-class Horse extends Animal {
-	constructor(legs, arms, tLength) {
-		super(legs, arms);
-		this.tailLength = tLength;
-	}
-}
+// class Horse extends Animal {
+// 	constructor(legs, arms, tLength) {
+// 		super(legs, arms);
+// 		this.tailLength = tLength;
+// 	}
+// }
 
-let horse1 = new Horse(3, 4, 10);
-console.log(
-	`My stats are legs =>${horse1.numLegs}, arms => ${
-		horse1.numArms
-	}, tail length => ${horse1.tailLength} and I run => ${horse1.runSpeed()}`
-);
+// let horse1 = new Horse(3, 4, 10);
+// console.log(
+// 	`My stats are legs =>${horse1.numLegs}, arms => ${
+// 		horse1.numArms
+// 	}, tail length => ${horse1.tailLength} and I run => ${horse1.runSpeed()}`
+// );
 
-// function counter() {
-// 	let count = 0;
+// let func1 = function (name) {
+// 	let words = `My name is ${name}`;
+// 	return words;
+// };
 
+// let func2 = (name) => {
+// 	let words = `My name is ${name}`;
+// 	return words;
+// };
+
+// console.log(func1("Mark"));
+// console.log(func2("Arely"));
+
+// function tellWords(func1, func2) {
+// 	let ours = "our dogs";
+// 	// return ours;
+// 	func1(ours);
+// 	func2(ours);
+// }
+
+// tellWords(
+// 	(variable1) => {
+// 		console.log(`Hello, there.`);
+// 		let my = "my";
+// 	},
+// 	(variable2) => {
+// 		console.log("goodbye");
+// 		let your = "your dog";
+// 		console.log(`these are ${variable2}.. no ${your}`);
+// 	}
+// );
+
+// // (function () {
+// // 	let var1 = 56;
+// // 	alert(`this in an IIFE ... ${var1}`);
+// // })();
+
+// function counter1() {
+// 	let times = 0;
 // 	return function () {
-// 		return count++;
+// 		return times++;
 // 	};
 // }
 
-// let count = counter();
+// let counter = counter1();
 
-// console.log(count());
-// console.log(count());
-// console.log(count());
+// console.log(counter());
+// console.log(counter());
+// console.log(counter());
+// console.log(counter());
 
-let func1 = function (name) {
-	let words = `My name is ${name}`;
-	return words;
-};
+// function makeSentence(word) {
+// 	let word1 = "The";
+// 	return function (y) {
+// 		return word1 + " " + word + " " + y;
+// 	};
+// }
 
-let func2 = (name) => {
-	let words = `My name is ${name}`;
-	return words;
-};
+// let sentence = makeSentence("ground");
+// console.log(sentence("is hard"));
 
-console.log(func1("Mark"));
-console.log(func2("Arely"));
+// //spread operator
+// const Foo3 = (...args) => args;
+// console.log(Foo3(1, "asd", { x: () => null }, class X {}, null));
 
-function tellWords(func1, func2) {
-	let ours = "our dogs";
-	// return ours;
-	func1(ours);
-	func2(ours);
+//Fetch
+let url;
+fetch('http://swapi.dev/api/films/1/')
+	.then(response => {
+		if (!response.ok) {
+			throw new Error('there was an error');
+		}
+		return response.json();
+	})
+	.then(body => {
+		console.log(body)
+		return body;
+	})
+	.then(body => { url = body.characters[0] });
+
+// let url1 = await url;
+setTimeout(() => console.log(url),300);
+// console.log(url);
+
+//Fetch POST
+async function RunFetchPost(){
+  let res = await fetch('https://jsonplaceholder.typicode.com/posts',
+    {
+      method:"POST",
+      body: JSON.stringify({myObj: "stuff"})
+    });
+  let json = await res.json();
+  console.log('the id is ' + JSON.stringify(json));
 }
 
-tellWords(
-	(variable1) => {
-		console.log(`Hello, there.`);
-		let my = "my";
-	},
-	(variable2) => {
-		console.log("goodbye");
-		let your = "your dog";
-		console.log(`these are ${variable2}.. no ${your}`);
-	}
-);
+RunFetchPost();
 
-// (function () {
-// 	let var1 = 56;
-// 	alert(`this in an IIFE ... ${var1}`);
-// })();
-
-function counter1() {
-	let times = 0;
-	return function () {
-		return times++;
-	};
-}
-
-let counter = counter1();
-
-console.log(counter());
-console.log(counter());
-console.log(counter());
-console.log(counter());
-
-function makeSentence(word) {
-	let word1 = "The";
-	return function (y) {
-		return word1 + " " + word + " " + y;
-	};
-}
-
-let sentence = makeSentence("ground");
-console.log(sentence("is hard"));
-
-//spread operator
-const Foo3 = (...args) => args;
-console.log(Foo3(1, "asd", { x: () => null }, class X {}, null));
+//Fetch POST
+fetch('https://jsonplaceholder.typicode.com/posts',
+  {
+    method:"POST",
+    body: JSON.stringify({myObj: "stuff"})
+  })
+   .then(response => response.json())
+   .then(json => console.log(json))
 
