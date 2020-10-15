@@ -1,4 +1,5 @@
-import { AllPlayers } from './../PlayerList';
+import { GamePlayService } from './../game-play.service';
+// import { AllPlayers } from './../PlayerList';
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../IPlayer';
 
@@ -9,11 +10,26 @@ import { Player } from '../IPlayer';
 })
 export class PlayerListComponent implements OnInit {
   ListOfPlayers: Player[];
-  constructor() { }
+  SelectedPlayer: Player;
+  constructor(private gamePlay: GamePlayService) { }
 
   ngOnInit(): void {
-    this.ListOfPlayers = AllPlayers;
-    console.log(AllPlayers);
+    // this.ListOfPlayers = AllPlayers;
+    // console.log(AllPlayers);
+    this.GetListOfPlayers();
   }
 
+  GetListOfPlayers(): void {
+    this.gamePlay.ListOfPlayers().subscribe(p => this.ListOfPlayers = p);
+  }
+
+  DeletePlayer(id: number): void {
+    this.gamePlay.DeletePlayer(id);
+    this.GetListOfPlayers();
+  }
+
+  EditPlayer(id: number): void {
+    this.SelectedPlayer = this.gamePlay.GetPlayer(id);
+
+  }
 }

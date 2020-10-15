@@ -8,6 +8,12 @@ export const AllPlayers: Player[] = [
     Losses: 4
   },
   {
+    PlayerId: 5,
+    Name: 'Mark5',
+    Wins: 5,
+    Losses: 0
+  },
+  {
     PlayerId: 4,
     Name: 'Computer1',
     Wins: 5,
