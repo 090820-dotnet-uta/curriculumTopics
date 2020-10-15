@@ -2,11 +2,11 @@
   <ul>
     PlayerName | PlayerId | Wins | Losses
     <li *ngFor="let p of ListOfPlayers">
-      {{p.Name}} | {{p.PlayerId}} | {{p.Wins}} | {{p.Losses}} |
-      <button (click)="DeletePlayer(p.PlayerId)">Delete Player</button> |
-      <button (click)="EditPlayer(p.PlayerId)">Edit Player</button>
+      {{p.name}} | {{p.playerId}} | {{p.wins}} | {{p.losses}} |
+      <button (click)="DeletePlayer(p.playerId)">Delete Player</button> |
+      <button (click)="EditPlayer(p.playerId)">Edit Player</button>
     </li>
   </ul>
 </div>
 
-<app-playerdetails [player]='this.SelectedPlayer'></app-playerdetails>
+<app-playerdetails [player]='this.SelectedPlayer' (editedPlayer)="HandleEditPlayer($event)"></app-playerdetails>

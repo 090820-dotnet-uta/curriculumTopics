@@ -2,57 +2,57 @@ import { Player } from './IPlayer';
 
 export const AllPlayers: Player[] = [
   {
-    PlayerId: 3,
-    Name: 'Mark',
-    Wins: 1,
-    Losses: 4
+    playerId: 3,
+    name: 'Mark',
+    wins: 1,
+    losses: 4
   },
   {
-    PlayerId: 5,
-    Name: 'Mark5',
-    Wins: 5,
-    Losses: 0
+    playerId: 5,
+    name: 'Mark5',
+    wins: 5,
+    losses: 0
   },
   {
-    PlayerId: 4,
-    Name: 'Computer1',
-    Wins: 5,
-    Losses: 3
+    playerId: 4,
+    name: 'Computer1',
+    wins: 5,
+    losses: 3
   },
   {
-    PlayerId: 10,
-    Name: 'joe',
-    Wins: 1,
-    Losses: 0
+    playerId: 10,
+    name: 'joe',
+    wins: 1,
+    losses: 0
   },
   {
-    PlayerId: 11,
-    Name: 'mark112',
-    Wins: 0,
-    Losses: 0
+    playerId: 11,
+    name: 'mark112',
+    wins: 0,
+    losses: 0
   },
   {
-    PlayerId: 12,
-    Name: 'Ethan',
-    Wins: 1,
-    Losses: 1
+    playerId: 12,
+    name: 'Ethan',
+    wins: 1,
+    losses: 1
   },
   {
-    PlayerId: 13,
-    Name: 'hjjutdytu',
-    Wins: 0,
-    Losses: 0
+    playerId: 13,
+    name: 'hjjutdytu',
+    wins: 0,
+    losses: 0
   },
   {
-    PlayerId: 15,
-    Name: 'mark2',
-    Wins: 0,
-    Losses: 0
+    playerId: 15,
+    name: 'mark2',
+    wins: 0,
+    losses: 0
   },
   {
-    PlayerId: 16,
-    Name: 'kerry',
-    Wins: 1,
-    Losses: 1
+    playerId: 16,
+    name: 'kerry',
+    wins: 1,
+    losses: 1
   }
 ];

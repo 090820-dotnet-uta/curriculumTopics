@@ -1,38 +1,18 @@
-<!-- <p>playerdetails works!</p>
-<div *ngIf="this.player">
-
-  <form action="">
-    {{player.Name}} | {{player.PlayerId}} | {{player.Wins}} | {{player.Losses}} <br>
-    <input type="text" name="Name" id="Name" placeholder="{{player.Name}}"><br>
-    <input type="number" name="PlayerId" id="PlayerId" placeholder="{{player.PlayerId}}"><br />
-    <input type="number" name="Wins" id="Wins" placeholder="{{player.Wins}}"><br>
-    <input type="number" name="Losses" id="Losses" placeholder="{{player.Losses}}"><br>
-    <input type="submit">
-  </form>
-
-
-</div> -->
-
 <p>playerdetails works!</p>
 <div *ngIf="this.player">
-  {{ this.player.Name }} | {{ this.player.PlayerId }} | {{ this.player.Wins }} |
-  {{ this.player.Losses }}
+  {{ this.player.name }} | {{ this.player.playerId }} | {{ this.player.wins }} | {{ this.player.losses }}
   <br />
   <form [formGroup]="playerEditForm">
-    <input formControlName="name" [(ngModel)]="player.Name" type="text" name="Name" id="Name"
-      placeholder="{{ player.Name }}" />
+    <input formControlName="name" type="text" name="Name" id="Name" />
     <br />
-    <input formControlName="playerId" [(ngModel)]="player.PlayerId" type="number" name="PlayerId" id="PlayerId"
-      placeholder="{{ player.PlayerId }}" />
+    <input formControlName="playerId" type="number" name="PlayerId" id="PlayerId" min="0" />
     <br />
-    <input formControlName="wins" [(ngModel)]="player.Wins" type="number" name="Wins" id="Wins"
-      placeholder="{{ player.Wins }}" />
+    <input formControlName="wins" type="number" name="Wins" id="Wins" />
     <br />
-    <input formControlName="losses" [(ngModel)]="player.Losses" type="number" name="Losses" id="Losses"
-      placeholder="{{ player.Losses }}" />
+    <input formControlName="losses" type="number" name="Losses" id="Losses" />
     <br>
-    <input type="submit" value="Sumbit">
+    <button (click)="UpdatePlayer()" type="submit">Submit</button>
   </form>
 </div>
 
-<pre>{{playerEditForm.value | json}}</pre>
+<pre *ngIf="playerEditForm">{{playerEditForm.value | json}}</pre>
