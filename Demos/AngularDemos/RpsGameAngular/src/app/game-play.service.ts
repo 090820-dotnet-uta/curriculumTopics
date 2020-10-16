@@ -11,7 +11,7 @@ import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 
 export class GamePlayService {
   private listOfPlayers: Array<Player>;
-  private url: string = 'https://localhost:5001/api/game/';
+  private url = 'https://localhost:5001/api/game/';
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
 

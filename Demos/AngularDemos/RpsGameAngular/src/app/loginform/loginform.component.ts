@@ -28,7 +28,7 @@ export class LoginformComponent implements OnInit {
   // functions go down here.
   onSubmit() {
     console.log(this.loginForm.get('userName').value);
-    let extractedName = this.loginForm.get('userName').value;
+    const extractedName = this.loginForm.get('userName').value;
     console.log(extractedName);
   }
 

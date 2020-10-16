@@ -37,15 +37,15 @@ export class PlayerdetailsComponent implements OnChanges {
   }
 
   UpdatePlayer(): void {
-    console.log(`playerEditForm name in child component => ${this.playerEditForm.get("name").value}`);
-    console.log(`playerEditForm playerId in child component => ${this.playerEditForm.get("playerId").value}`);
-    console.log(`playerEditForm playerId in child component => ${this.playerEditForm.get("wins").value}`);
-    console.log(`playerEditForm playerId in child component => ${this.playerEditForm.get("losses").value}`);
+    console.log(`playerEditForm name in child component => ${this.playerEditForm.get('name').value}`);
+    console.log(`playerEditForm playerId in child component => ${this.playerEditForm.get('playerId').value}`);
+    console.log(`playerEditForm playerId in child component => ${this.playerEditForm.get('wins').value}`);
+    console.log(`playerEditForm playerId in child component => ${this.playerEditForm.get('losses').value}`);
 
-    this.p1 = new Player(this.playerEditForm.get("name").value,
-      +this.playerEditForm.get("wins").value,
-      +this.playerEditForm.get("losses").value,
-      +this.playerEditForm.get("playerId").value);
+    this.p1 = new Player(this.playerEditForm.get('name').value,
+      +this.playerEditForm.get('wins').value,
+      +this.playerEditForm.get('losses').value,
+      +this.playerEditForm.get('playerId').value);
 
     console.log(` Child/UpdatePlayer. The name of the player to be edited is => ${this.p1.name}. playerId => ${this.p1.playerId}`);
 
